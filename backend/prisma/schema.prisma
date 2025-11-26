@@ -1,0 +1,157 @@
+model Turno {
+  id           Int      @id @default(autoincrement())
+  numero       String
+  estado       String   @default("pendiente")
+  tiempoEstimado String?
+  cliente      Cliente  @relation(fields: [clienteId], references: [id])
+  clienteId    Int
+  pedido       Pedido   @relation(fields: [pedidoId], references: [id])
+  pedidoId     Int
+  creadoEn     DateTime @default(now())
+}
+// Prisma schema for Can Farines backend
+// PostgreSQL database
+
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Cliente {
+  id           Int      @id @default(autoincrement())
+  nombre       String
+  email        String   @unique
+  password     String
+  telefono     String?
+  avatar       String?  // url de la foto de perfil
+  idioma       String?  // es, en, fr, etc
+  ciudad       String?
+  direcciones  Direccion[]
+  pedidos      Pedido[]
+  citas        Cita[]
+  documentos   Documento[]
+  facturas     Factura[]
+  garajes      Garaje[]
+  notificaciones Notificacion[]
+  presupuestos Presupuesto[]
+  cupones      Cupon[]
+  role         String   @default("cliente")
+  creadoEn     DateTime @default(now())
+  turnos       Turno[]
+}
+
+model Cupon {
+  id          Int      @id @default(autoincrement())
+  codigo      String   @unique
+  descripcion String
+  descuento   String
+  validoHasta DateTime
+  clienteId   Int?
+  cliente     Cliente? @relation(fields: [clienteId], references: [id])
+  usado       Boolean  @default(false)
+}
+
+
+model Direccion {
+  id         Int      @id @default(autoincrement())
+  clienteId  Int
+  calle      String
+  ciudad     String
+  provincia  String
+  pais       String
+  codigoPostal String
+  cliente    Cliente  @relation(fields: [clienteId], references: [id])
+}
+
+model Producto {
+  id          Int      @id @default(autoincrement())
+  nombre      String
+  descripcion String
+  precio      Float
+  stock       Int
+  imagen      String?
+  pedidoItems PedidoItem[]
+}
+
+model Pedido {
+  id          Int      @id @default(autoincrement())
+  clienteId   Int
+  fecha       DateTime @default(now())
+  estado      String   @default("pendiente")
+  total       Float
+  cliente     Cliente  @relation(fields: [clienteId], references: [id])
+  items       PedidoItem[]
+  facturas    Factura[]
+  turnos      Turno[]
+}
+
+model PedidoItem {
+  id         Int      @id @default(autoincrement())
+  pedidoId   Int
+  productoId Int
+  cantidad   Int
+  precio     Float
+  pedido     Pedido   @relation(fields: [pedidoId], references: [id])
+  producto   Producto @relation(fields: [productoId], references: [id])
+}
+
+model Cita {
+  id        Int      @id @default(autoincrement())
+  fecha     DateTime
+  motivo    String
+  clienteId Int
+  cliente   Cliente  @relation(fields: [clienteId], references: [id])
+}
+
+model Documento {
+  id        Int      @id @default(autoincrement())
+  nombre    String
+  url       String
+  clienteId Int
+  cliente   Cliente  @relation(fields: [clienteId], references: [id])
+}
+
+model Factura {
+  id        Int      @id @default(autoincrement())
+  fecha     DateTime
+  total     Float
+  clienteId Int
+  pedidoId  Int
+  cliente   Cliente  @relation(fields: [clienteId], references: [id])
+  pedido    Pedido   @relation(fields: [pedidoId], references: [id])
+}
+
+model Garaje {
+  id        Int      @id @default(autoincrement())
+  nombre    String
+  ubicacion String
+  clienteId Int
+  cliente   Cliente  @relation(fields: [clienteId], references: [id])
+}
+
+model Notificacion {
+  id        Int      @id @default(autoincrement())
+  mensaje   String
+  leida     Boolean @default(false)
+  clienteId Int
+  cliente   Cliente  @relation(fields: [clienteId], references: [id])
+}
+
+model Presupuesto {
+  id        Int      @id @default(autoincrement())
+  fecha     DateTime
+  monto     Float
+  clienteId Int
+  cliente   Cliente  @relation(fields: [clienteId], references: [id])
+}
+
+model Promocion {
+  id        Int      @id @default(autoincrement())
+  titulo    String
+  descripcion String
+  descuento String
+  validoHasta DateTime
+}

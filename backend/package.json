@@ -1,0 +1,33 @@
+{
+  "name": "can-farines-backend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "api:dev": "ts-node src/server.ts",
+    "build": "next build",
+    "start": "next start",
+    "prisma:migrate": "prisma migrate dev --name init",
+    "prisma:generate": "prisma generate",
+    "prisma:seed": "prisma db seed --preview-feature"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "5.15.0",
+    "@types/multer": "^2.0.0",
+    "cors": "^2.8.5",
+    "multer": "^2.0.2",
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/node": "^24.10.1",
+    "prisma": "5.15.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
