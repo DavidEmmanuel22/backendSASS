@@ -17,7 +17,7 @@ import productoRoutes from './routes/producto';
 import turnoRoutes from './routes/turno';
 
 const app = express();
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 
 // Servir archivos estáticos de la carpeta uploads
