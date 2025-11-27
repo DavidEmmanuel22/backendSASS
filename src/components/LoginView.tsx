@@ -21,7 +21,7 @@ export function LoginView({ onLogin }: LoginViewProps) {
   const handleLogin = async () => {
     if (!email || !password) return;
     try {
-      const res = await fetch('http://localhost:4000/auth/login', {
+      const res = await fetch('https://mytreefam.com/sass/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })

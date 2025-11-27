@@ -68,7 +68,7 @@ export function CatalogoPromos() {
   const [productos, setProductos] = useState<Producto[]>([]);
 
   useEffect(() => {
-    fetch('http://localhost:4000/productos')
+    fetch('https://mytreefam.com/sass/api/productos')
       .then(res => res.json())
       .then(data => setProductos(data))
       .catch(() => setProductos([]));
@@ -78,7 +78,7 @@ export function CatalogoPromos() {
   const [promociones, setPromociones] = useState<Promocion[]>([]);
 
   useEffect(() => {
-    fetch('http://localhost:4000/promociones')
+    fetch('https://mytreefam.com/sass/api/promociones')
       .then(res => res.json())
       .then(data => setPromociones(data))
       .catch(() => setPromociones([]));

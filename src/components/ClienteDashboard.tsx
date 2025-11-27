@@ -77,7 +77,7 @@ export function ClienteDashboard({ user, onLogout }: ClienteDashboardProps) {
   useEffect(() => {
     const clienteId = user?.id;
     if (!clienteId) return;
-    fetch(`http://localhost:4000/clientes/${clienteId}/turno-activo`)
+    fetch(`https://mytreefam.com/sass/api//clientes/${clienteId}/turno-activo`)
       .then(res => res.json())
       .then(data => {
         if (data && data.id) {
@@ -93,7 +93,7 @@ export function ClienteDashboard({ user, onLogout }: ClienteDashboardProps) {
     // Obtener pedidos no completados del backend
     useEffect(() => {
       const clienteId = userData?.id ?? 1;
-      fetch(`http://localhost:4000/clientes/${clienteId}/pedidos`)
+      fetch(`https://mytreefam.com/sass/api//clientes/${clienteId}/pedidos`)
         .then(res => res.json())
         .then(data => {
           const activos = Array.isArray(data) ? data.filter((p: any) => p.estado !== 'completado').length : 0;
@@ -141,7 +141,7 @@ export function ClienteDashboard({ user, onLogout }: ClienteDashboardProps) {
   // Obtener notificaciones no leídas del backend
   useEffect(() => {
     const clienteId = userData?.id ?? 1;
-    fetch(`http://localhost:4000/clientes/${clienteId}/notificaciones`)
+    fetch(`https://mytreefam.com/sass/api/clientes/${clienteId}/notificaciones`)
       .then(res => res.json())
       .then(data => {
         const count = Array.isArray(data) ? data.filter((n: any) => !n.leida).length : 0;
@@ -167,14 +167,14 @@ export function ClienteDashboard({ user, onLogout }: ClienteDashboardProps) {
     // Buscar pedido pendiente del cliente
     const clienteId = userData?.id;
     if (!clienteId) return toast.error('No se encontró el cliente');
-    const pedidosRes = await fetch(`http://localhost:4000/clientes/${clienteId}/pedidos`);
+    const pedidosRes = await fetch(`https://mytreefam.com/sass/api/clientes/${clienteId}/pedidos`);
     const pedidos = await pedidosRes.json();
     const pedidoPendiente = Array.isArray(pedidos)
       ? pedidos.find((p: any) => p.estado === 'pendiente' || p.estado === 'por entregar')
       : null;
     if (!pedidoPendiente) return toast.error('No tienes pedidos pendientes para generar turno');
     // Crear turno en backend
-    const turnoRes = await fetch('http://localhost:4000/turnos', {
+    const turnoRes = await fetch('https://mytreefam.com/sass/api/turnos', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -224,7 +224,7 @@ export function ClienteDashboard({ user, onLogout }: ClienteDashboardProps) {
   const handleCancelarTurno = async () => {
     if (turnoActivo && turnoActivo.id) {
       try {
-        const res = await fetch(`http://localhost:4000/turnos/${turnoActivo.id}`, {
+        const res = await fetch(`https://mytreefam.com/sass/api/turnos/${turnoActivo.id}`, {
           method: 'DELETE'
         });
         if (res.ok) {
@@ -265,7 +265,10 @@ export function ClienteDashboard({ user, onLogout }: ClienteDashboardProps) {
   const bottomNavItems: BottomNavItem[] = [
     { id: 'inicio', label: 'Inicio', icon: Home },
     { id: 'catalogo', label: 'Catálogo', icon: Store },
-    { id: 'pedidos', label: 'Pedidos', icon: ShoppingBag, badge: pedidosNoCompletados },
+    { id: 'pedidos', label: 'Pedidos', icon: ShoppingBag,  },
+    { id: 'chat', label: 'Chat y Soporte', icon: MessageSquare },
+    { id: 'notificaciones', label: 'Notificaciones', icon: Bell, badge: notificacionesNoLeidas },
+    { id: 'configuracion', label: 'Configuración', icon: Settings },
   ];
 
   // Items para el drawer (resto de opciones)

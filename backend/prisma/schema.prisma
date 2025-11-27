@@ -1,3 +1,23 @@
+model Chat {
+  id         Int      @id @default(autoincrement())
+  asunto     String
+  estado     String   @default("abierto")
+  clienteId  Int
+  pedidoId   Int
+  cliente    Cliente  @relation(fields: [clienteId], references: [id])
+  pedido     Pedido   @relation(fields: [pedidoId], references: [id])
+  mensajes   Mensaje[]
+  creadoEn   DateTime @default(now())
+}
+
+model Mensaje {
+  id        Int      @id @default(autoincrement())
+  chatId    Int
+  autor     String
+  texto     String
+  fecha     DateTime @default(now())
+  chat      Chat     @relation(fields: [chatId], references: [id])
+}
 model Turno {
   id           Int      @id @default(autoincrement())
   numero       String
@@ -41,6 +61,7 @@ model Cliente {
   role         String   @default("cliente")
   creadoEn     DateTime @default(now())
   turnos       Turno[]
+  chats        Chat[]
 }
 
 model Cupon {
@@ -86,6 +107,7 @@ model Pedido {
   items       PedidoItem[]
   facturas    Factura[]
   turnos      Turno[]
+  chats       Chat[]
 }
 
 model PedidoItem {

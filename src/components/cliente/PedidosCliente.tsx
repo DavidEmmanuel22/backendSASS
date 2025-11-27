@@ -45,7 +45,7 @@ export function PedidosCliente({ onNavigateToChat }: PedidosClienteProps = {}) {
 
   // Petición para traer los pedidos del cliente
   useEffect(() => {
-    fetch(`http://localhost:4000/clientes/${clienteId}/pedidos`)
+    fetch(`https://mytreefam.com/sass/api/clientes/${clienteId}/pedidos`)
       .then(res => res.json())
       .then(data => {
         // Formatear fechas y ordenar descendente

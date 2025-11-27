@@ -1,10 +1,12 @@
 import express from 'express';
 import cors from 'cors';
 import clienteRoutes from './routes/cliente';
+import chatRoutes from './routes/chat';
 import uploadRoutes from './routes/upload';
 import path from 'path';
 import authRoutes from './routes/auth';
 import notificacionRoutes from './routes/notificacion';
+import mensajeRoutes from './routes/mensaje';
 import pedidoRoutes from './routes/pedido';
 import citaRoutes from './routes/cita';
 import documentoRoutes from './routes/documento';
@@ -25,7 +27,9 @@ app.use('/uploads', express.static(path.join(__dirname, '../../uploads')));
 
 app.use('/auth', authRoutes);
 app.use('/clientes', clienteRoutes);
+app.use('/chats', chatRoutes);
 app.use('/notificaciones', notificacionRoutes);
+app.use('/mensajes', mensajeRoutes);
 app.use('/pedidos', pedidoRoutes);
 app.use('/citas', citaRoutes);
 app.use('/documentos', documentoRoutes);

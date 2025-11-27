@@ -51,7 +51,7 @@ export function CestaOverlay({ isOpen, onOpenChange, itemsEnCesta }: CestaOverla
   // Productos sugeridos para "También te puede interesar" (desde backend)
   const [productosSugeridos, setProductosSugeridos] = useState<any[]>([]);
   React.useEffect(() => {
-    fetch('http://localhost:4000/productos')
+    fetch('https://mytreefam.com/sass/api/productos')
       .then(res => res.json())
       .then(data => {
         // Filtrar productos que no estén ya en la cesta (asegurando tipo de id)
@@ -105,7 +105,7 @@ export function CestaOverlay({ isOpen, onOpenChange, itemsEnCesta }: CestaOverla
         total,
         items: pedidoItems
       };
-      fetch('http://localhost:4000/pedidos', {
+      fetch('https://mytreefam.com/sass/api/pedidos', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

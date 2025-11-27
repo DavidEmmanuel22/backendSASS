@@ -85,7 +85,7 @@ export function Sidebar({
   // Obtener datos reales del usuario al montar
   useEffect(() => {
     if (user?.id) {
-      fetch(`http://localhost:4000/clientes/${user.id}`)
+      fetch(`https://mytreefam.com/sass/api/clientes/${user.id}`)
         .then(res => res.json())
         .then(data => {
           setUser(data);
@@ -132,9 +132,7 @@ export function Sidebar({
                 }`}
               >
                 <Icon className="w-5 h-5 shrink-0" />
-                {item.badge && item.badge > 0 && (
-                  <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-                )}
+                {/* Badge eliminado para evitar desplazamiento y saturación visual */}
               </button>
             </TooltipTrigger>
             <TooltipContent side="right">
@@ -160,11 +158,7 @@ export function Sidebar({
               >
                 <Icon className="w-5 h-5 shrink-0" />
                 <span className="flex-1 text-left truncate">{item.label}</span>
-                {item.badge && item.badge > 0 && (
-                  <Badge variant="secondary" className="ml-auto">
-                    {item.badge}
-                  </Badge>
-                )}
+                {/* Badge eliminado para evitar desplazamiento y saturación visual */}
                 {hasSubmenu && (
                   <ChevronDown className={`w-4 h-4 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
                 )}

@@ -40,19 +40,19 @@ export function InicioCliente({ onOpenCesta, onOpenNuevaCita, onYaEstoyAqui }: I
 
   useEffect(() => {
     // Promociones
-    fetch(`http://localhost:4000/promociones`)
+    fetch(`https://mytreefam.com/sass/api/promociones`)
       .then(res => res.json())
       .then(data => setPromociones(data))
       .catch(() => setPromociones([]));
 
     // Cliente
-    fetch(`http://localhost:4000/clientes/${clienteId}`)
+    fetch(`https://mytreefam.com/sass/api/clientes/${clienteId}`)
       .then(res => res.json())
       .then(data => setCliente(data))
       .catch(() => setCliente(null));
 
     // Cupones
-    fetch(`http://localhost:4000/cupones`)
+    fetch(`https://mytreefam.com/sass/api/cupones`)
       .then(res => res.json())
       .then(data => setCupones(data))
       .catch(() => setCupones([]));

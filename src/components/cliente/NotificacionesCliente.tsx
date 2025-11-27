@@ -54,7 +54,7 @@ export function NotificacionesCliente() {
 
   // Petición para traer las notificaciones del cliente
   useEffect(() => {
-    fetch(`http://localhost:4000/clientes/${clienteId}/notificaciones`)
+    fetch(`https://mytreefam.com/sass/api/clientes/${clienteId}/notificaciones`)
       .then(res => res.json())
       .then(data => {
         // Si la fecha viene como string, conviértela a Date

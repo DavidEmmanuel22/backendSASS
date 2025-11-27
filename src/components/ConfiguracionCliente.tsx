@@ -44,7 +44,7 @@ export function ConfiguracionCliente({ user }: ConfiguracionClienteProps) {
         // Obtener datos reales del cliente al montar
         useEffect(() => {
           if (user?.id) {
-            fetch(`http://localhost:4000/clientes/${user.id}`)
+            fetch(`https://mytreefam.com/sass/api/clientes/${user.id}`)
               .then(res => res.json())
               .then(data => {
                 setCliente(data);
@@ -55,7 +55,7 @@ export function ConfiguracionCliente({ user }: ConfiguracionClienteProps) {
     // Eliminar cuenta (modal)
     const handleEliminarCuenta = () => {
       if (confirmacionEliminar.toLowerCase() === 'eliminar') {
-        fetch(`http://localhost:4000/clientes/${user.id}`, {
+        fetch(`https://mytreefam.com/sass/api/clientes/${user.id}`, {
           method: 'DELETE',
         })
           .then(res => {
@@ -111,7 +111,7 @@ export function ConfiguracionCliente({ user }: ConfiguracionClienteProps) {
         ciudad,
         avatar: fotoPerfil
       };
-      const res = await fetch(`http://localhost:4000/clientes/${user.id}`, {
+      const res = await fetch(`https://mytreefam.com/sass/api/clientes/${user.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -139,7 +139,7 @@ export function ConfiguracionCliente({ user }: ConfiguracionClienteProps) {
     const formData = new FormData();
     formData.append('file', file);
     try {
-      const res = await fetch('http://localhost:4000/upload', {
+      const res = await fetch('https://mytreefam.com/sass/api/upload', {
         method: 'POST',
         body: formData
       });
